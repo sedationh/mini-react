@@ -36,3 +36,9 @@ export function updateHostComponent(wip) {
 
   reconcileChildren(wip, wip.props.children)
 }
+
+export function updateFunctionComponent(wip) {
+  const { type, props } = wip
+  const children = type(props)
+  reconcileChildren(wip, children)
+}

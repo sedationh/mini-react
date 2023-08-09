@@ -1,6 +1,6 @@
 import { Placement } from "./ReactFiberFlags"
-import { isString } from "lodash-es"
-import { HostComponent } from "./ReactWorkTags"
+import { isFunction, isString } from "lodash-es"
+import { FunctionComponent, HostComponent } from "./ReactWorkTags"
 
 export function createFiber(vnode, returnFiber) {
   console.log("sedationh createFiber", vnode, returnFiber)
@@ -29,6 +29,9 @@ export function createFiber(vnode, returnFiber) {
 
   if (isString(vnode.type)) {
     fiber.tag = HostComponent
+  }
+  if (isFunction(vnode.type)) {
+    fiber.tag = FunctionComponent
   }
 
   return fiber
