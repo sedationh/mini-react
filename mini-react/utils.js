@@ -4,6 +4,7 @@ export function updateNode(node, nextVal) {
   Object.keys(nextVal).forEach((key) => {
     if (key === "children") {
       if (isStringOrNumber(nextVal[key])) {
+        // STUDY: seda 文本节点处理
         node.textContent = nextVal[key]
       }
     } else {

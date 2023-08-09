@@ -1,5 +1,5 @@
-import { FunctionComponent, HostComponent } from "./ReactWorkTags"
-import { updateFunctionComponent, updateHostComponent } from "./ReactFiberReconciler"
+import { ClassComponent, FunctionComponent, HostComponent, HostText } from "./ReactWorkTags"
+import { updateClassComponent, updateFunctionComponent, updateHostComponent } from "./ReactFiberReconciler"
 import { Placement } from "./ReactFiberFlags"
 
 let wip = null // work in progress 当前正在工作中的
@@ -19,6 +19,12 @@ function performUnitOfWork() {
       break
     case FunctionComponent:
       updateFunctionComponent(wip)
+      break
+    case ClassComponent:
+      updateClassComponent(wip)
+      break
+    case HostText:
+      updateHostComponent(wip)
       break
 
     default:
