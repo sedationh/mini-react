@@ -53,3 +53,8 @@ export function updateClassComponent(wip) {
 export function updateHostTextComponent(wip) {
   wip.stateNode = document.createTextNode(wip.props.children)
 }
+
+export function updateFragmentComponent(wip) {
+  // TODO: 这里有个bug, Fragment 仅有 一个文本子节点时，会出现问题
+  reconcileChildren(wip, wip.props.children)
+}

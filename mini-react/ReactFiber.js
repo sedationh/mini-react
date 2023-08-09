@@ -1,6 +1,6 @@
 import { Placement } from "./ReactFiberFlags"
 import { isFunction, isString, isUndefined } from "lodash-es"
-import { ClassComponent, FunctionComponent, HostComponent, HostText } from "./ReactWorkTags"
+import { ClassComponent, Fragment, FunctionComponent, HostComponent, HostText } from "./ReactWorkTags"
 
 export function createFiber(vnode, returnFiber) {
   console.log("sedationh createFiber", vnode, returnFiber)
@@ -38,6 +38,9 @@ export function createFiber(vnode, returnFiber) {
   } else if (isUndefined(vnode.type)) {
     fiber.tag = HostText
     fiber.props = { children: vnode }
+  } else {
+    // Fragment Symbol(react.fragment)
+    fiber.tag = Fragment
   }
 
   return fiber

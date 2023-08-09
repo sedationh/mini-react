@@ -18,6 +18,10 @@ function App() {
       有其他同级元素的文本
       {/* @ts-ignore */}
       <ClassComp />
+      <>
+        hi
+        {/* <h1>2</h1> */}
+      </>
     </div>
   )
 }
