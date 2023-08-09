@@ -1,10 +1,23 @@
+import { createFiber } from "./ReactFiber"
+import { scheduleUpdateOnFiber } from "./ReactFiberWorkLoop"
 function ReactDOMRoot(internalRoot) {
   this._internalRoot = internalRoot
+}
+
+function updateContainer(element, container) {
+  const { containerInfo } = container
+  const fiber = createFiber(element, {
+    type: containerInfo.nodeName.toLocaleLowerCase(),
+    stateNode: containerInfo,
+  })
+  // 组件初次渲染
+  scheduleUpdateOnFiber(fiber)
 }
 
 ReactDOMRoot.prototype.render = function (children) {
   const root = this._internalRoot
   console.log("sedationh render", root, children)
+  updateContainer(children, root)
 }
 
 function createRoot(container) {
