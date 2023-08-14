@@ -3,6 +3,7 @@ import { isStringOrNumber, updateNode } from "./utils"
 import { createFiber } from "./ReactFiber"
 
 // 协调（diff）
+// 创建新 fiber
 function reconcileChildren(wip, children) {
   if (isStringOrNumber(children)) {
     return
