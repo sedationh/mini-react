@@ -1,4 +1,4 @@
-import { Component } from "./WhichReact"
+import { Component, useReducer } from "./WhichReact"
 
 class ClassComp extends Component {
   render() {
@@ -10,7 +10,29 @@ class ClassComp extends Component {
   }
 }
 
+function FunctionComp() {
+  const [cnt, dispatchCnt] = useReducer((state, action) => {
+    console.log("sedationh action", action)
+    return state + 1
+  }, 0)
+  return (
+    <div>
+      <button
+        onClick={() => {
+          dispatchCnt("action")
+        }}
+      >
+        dispatchCnt
+      </button>
+      {cnt}
+      <h1>FunctionComp</h1>
+    </div>
+  )
+}
+
 function App() {
+  return <FunctionComp />
+
   return (
     <div>
       <h1>App</h1>
