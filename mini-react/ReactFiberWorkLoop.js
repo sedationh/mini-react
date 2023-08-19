@@ -5,8 +5,9 @@ import {
   updateFunctionComponent,
   updateHostComponent,
 } from "./ReactFiberReconciler"
-import { Placement } from "./ReactFiberFlags"
+import { Placement, Update } from "./ReactFiberFlags"
 import { scheduleCallback } from "./scheduler"
+import { updateNode } from "./utils"
 
 let wip = null // work in progress 当前正在工作中的
 let wipRoot = null
@@ -87,6 +88,9 @@ function commitWorker(wip) {
   const { flags, stateNode } = wip
   if (flags & Placement && stateNode) {
     parentNode.appendChild(stateNode)
+  }
+  if (flags & Update && stateNode) {
+    updateNode(stateNode, wip.alternate.props, wip.props)
   }
   // 2. 提交子节点
   commitWorker(wip.child)

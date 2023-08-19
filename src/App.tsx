@@ -1,5 +1,7 @@
 import { Component, useReducer } from "./WhichReact"
 
+let n = 1
+
 class ClassComp extends Component {
   render() {
     return (
@@ -12,7 +14,7 @@ class ClassComp extends Component {
 
 function FunctionComp() {
   const [cnt, dispatchCnt] = useReducer((state, action) => {
-    console.log("sedationh action", action)
+    console.log("sedationh action", action, n++)
     return state + 1
   }, 0)
   return (

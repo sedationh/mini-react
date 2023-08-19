@@ -1,6 +1,19 @@
 import { isString, isNumber } from "lodash-es"
 
-export function updateNode(node, nextVal) {
+export function updateNode(node, prev, nextVal) {
+  Object.keys(prev).forEach((key) => {
+    if (key === "children") {
+      if (isStringOrNumber(nextVal[key])) {
+        node.textContent = ""
+      }
+    } else if (key.slice(0, 2) === "on") {
+      const eventName = key.slice(2).toLowerCase()
+      node.removeEventListener(eventName, prev[key])
+    } else {
+      node[key] = ""
+    }
+  })
+
   Object.keys(nextVal).forEach((key) => {
     if (key === "children") {
       if (isStringOrNumber(nextVal[key])) {
@@ -15,6 +28,7 @@ export function updateNode(node, nextVal) {
     }
   })
 }
+
 
 export function isStringOrNumber(val) {
   return isString(val) || isNumber(val)
