@@ -3,7 +3,6 @@ import { isFunction, isString, isUndefined } from "lodash-es"
 import { ClassComponent, Fragment, FunctionComponent, HostComponent, HostText } from "./ReactWorkTags"
 
 export function createFiber(vnode, returnFiber) {
-  console.log("sedationh createFiber", vnode, returnFiber)
   const fiber = {
     // 类型
     type: vnode.type,

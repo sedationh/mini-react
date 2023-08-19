@@ -6,6 +6,7 @@ import {
   updateHostComponent,
 } from "./ReactFiberReconciler"
 import { Placement } from "./ReactFiberFlags"
+import { scheduleCallback } from "./scheduler/scheduler"
 
 let wip = null // work in progress 当前正在工作中的
 let wipRoot = null
@@ -13,6 +14,8 @@ let wipRoot = null
 export function scheduleUpdateOnFiber(fiber) {
   wip = fiber
   wipRoot = fiber
+
+  scheduleCallback(workLoop)
 }
 
 function performUnitOfWork() {
@@ -91,11 +94,8 @@ function commitWorker(wip) {
   commitWorker(wip.sibling)
 }
 
-/**
- * @param {IdleDeadline} idleDeadline
- */
-function workLoop(idleDeadline) {
-  while (wip && idleDeadline.timeRemaining() > 0) {
+function workLoop() {
+  while (wip) {
     performUnitOfWork()
   }
 
@@ -104,4 +104,4 @@ function workLoop(idleDeadline) {
   }
 }
 
-requestIdleCallback(workLoop)
+// requestIdleCallback(workLoop)

@@ -16,7 +16,6 @@ function updateContainer(element, container) {
 
 ReactDOMRoot.prototype.render = function (children) {
   const root = this._internalRoot
-  console.log("sedationh render", root, children)
   updateContainer(children, root)
 }
 
