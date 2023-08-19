@@ -28,13 +28,13 @@ function updateWorkInProgressHook() {
     }
   } else {
     // 更新
-    hook = current.memoriedState
+    currentlyRenderingFiber.memoriedState = current.memoriedState
     if (!workInProgressHook) {
       // hook0
-      workInProgressHook = currentlyRenderingFiber.memoriedState = hook
+      hook = workInProgressHook = currentlyRenderingFiber.memoriedState
     } else {
       // hook1, hook2, hook3 ...
-      workInProgressHook = workInProgressHook.next = hook
+      hook = workInProgressHook = workInProgressHook.next
     }
   }
 
@@ -43,6 +43,7 @@ function updateWorkInProgressHook() {
 
 export const useReducer = (reducer, initialState) => {
   const hook = updateWorkInProgressHook()
+  console.log("sedationh useReducer", hook)
 
   if (!currentlyRenderingFiber.alternate) {
     // 初次渲染
