@@ -24,6 +24,12 @@ export function createFiber(vnode, returnFiber) {
 
     // 记录节点在当前层级下的位置
     index: null,
+
+    // old fiber
+    alternate: null,
+
+    // function component, hook0
+    memoriedState: null,
   }
 
   if (isString(vnode.type)) {

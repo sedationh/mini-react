@@ -7,6 +7,9 @@ export function updateNode(node, nextVal) {
         // STUDY: seda 文本节点处理
         node.textContent = nextVal[key]
       }
+    } else if (key.slice(0, 2) === "on") {
+      const eventName = key.slice(2).toLowerCase()
+      node.addEventListener(eventName, nextVal[key])
     } else {
       node[key] = nextVal[key]
     }

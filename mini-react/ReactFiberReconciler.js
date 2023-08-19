@@ -1,6 +1,7 @@
 import { isArray } from "lodash-es"
 import { isStringOrNumber, updateNode } from "./utils"
 import { createFiber } from "./ReactFiber"
+import { renderWithHooks } from "./hooks"
 
 // 协调（diff）
 // 创建新 fiber
@@ -39,6 +40,8 @@ export function updateHostComponent(wip) {
 }
 
 export function updateFunctionComponent(wip) {
+  renderWithHooks(wip)
+  
   const { type, props } = wip
   const children = type(props)
   reconcileChildren(wip, children)
