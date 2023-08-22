@@ -43,17 +43,39 @@ function updateWorkInProgressHook() {
 
 export const useReducer = (reducer, initialState) => {
   const hook = updateWorkInProgressHook()
-  console.log("sedationh useReducer", hook)
 
   if (!currentlyRenderingFiber.alternate) {
     // 初次渲染
     hook.memoriedState = initialState
   }
 
+  const fiber = currentlyRenderingFiber
+
   const dispatch = (action) => {
     hook.memoriedState = reducer(hook.memoriedState, action)
-    currentlyRenderingFiber.alternate = { ...currentlyRenderingFiber }
-    scheduleUpdateOnFiber(currentlyRenderingFiber)
+    fiber.alternate = { ...fiber }
+    fiber.sibling = null
+    scheduleUpdateOnFiber(fiber)
+  }
+
+  return [hook.memoriedState, dispatch]
+}
+
+export const useState = (initialState) => {
+  const hook = updateWorkInProgressHook()
+
+  if (!currentlyRenderingFiber.alternate) {
+    // 初次渲染
+    hook.memoriedState = initialState
+  }
+
+  const fiber = currentlyRenderingFiber
+
+  const dispatch = (newState) => {
+    hook.memoriedState = typeof newState === "function" ? newState(hook.memoriedState) : newState
+    fiber.alternate = { ...fiber }
+    fiber.sibling = null
+    scheduleUpdateOnFiber(fiber)
   }
 
   return [hook.memoriedState, dispatch]

@@ -1,4 +1,4 @@
-import { Component, useReducer } from "./WhichReact"
+import { Component, useReducer, useState } from "./WhichReact"
 
 let n = 1
 
@@ -23,8 +23,11 @@ function FunctionComp() {
     return state + 2
   }, 0)
 
+  const [cnt3, setCnt3] = useState(0)
+
   return (
     <div>
+      <h1>FunctionComp</h1>
       <button
         onClick={() => {
           dispatchCnt("action")
@@ -42,7 +45,16 @@ function FunctionComp() {
         dispatchCnt cnt2
       </button>
       {cnt2}
-      <h1>FunctionComp</h1>
+      <hr />
+      <button
+        onClick={() => {
+          setCnt3((v) => v + 1)
+        }}
+      >
+        setCnt3(cnt3 + 1)
+      </button>
+      {cnt3}
+      <hr />
     </div>
   )
 }
@@ -58,7 +70,7 @@ function App() {
       {/* @ts-ignore */}
       <ClassComp />
       <FunctionComp />
-      {/* <FunctionComp /> */}
+      <FunctionComp />
       <>
         hi
         {/* <h1>2</h1> */}
